@@ -56,10 +56,10 @@ class Pry
     def best_available
       if !pry_instance.config.pager
         NullPager.new(pry_instance.output)
-      elsif !SystemPager.available? || Helpers::Platform.jruby?
+      elsif SystemPager.available?
         SimplePager.new(pry_instance.output)
-      else
-        SystemPager.new(pry_instance.output)
+      elsif !SystemPager.available?
+        SimplePager.new(_pry_.output)
       end
     end
 
